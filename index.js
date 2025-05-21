@@ -18,8 +18,13 @@ async function run() {
   try {
     await client.connect();
     const dataBase = client.db("usersdb");
-    const usersCollection = dataBase.collection("users");
-
+    const usersCollection = dataBase.collection("recipe-book");
+    // get method 
+     app.get('/addrecipes', async (req,res) => {
+        const cursor = usersCollection.find();
+        const result =await cursor.toArray()
+        res.send(result)
+    })
     // post method 
     app.post("/addrecipes", async(req, res) => {
         const newRecipe = req.body
