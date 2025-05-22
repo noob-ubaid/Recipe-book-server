@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
+app.use(express.json())
 const port = process.env.PORT || 3000;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@ubaid-database.njfi7n5.mongodb.net/?retryWrites=true&w=majority&appName=Ubaid-Database`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -16,7 +17,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
     const dataBase = client.db("usersdb");
     const usersCollection = dataBase.collection("recipe-book");
     // get method
