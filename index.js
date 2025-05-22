@@ -38,6 +38,25 @@ async function run() {
       res.send(result);
     });
 
+    // put method
+    app.put("/addrecipes/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const upsert = { upsert: true };
+      const { like } = req.body;
+      const updatedDoc = {
+        $set: {
+          like: like,
+        },
+      };
+      const result = await usersCollection.updateOne(
+        filter,
+        updatedDoc,
+        upsert
+      );
+      res.send(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
