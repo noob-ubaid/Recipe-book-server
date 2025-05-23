@@ -25,6 +25,11 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    app.get('/filterrecipe', async (req,res) => {
+      const cursor = usersCollection.find().sort({like : -1}).limit(6)
+      const result = await cursor.toArray()
+      res.send(result)
+    })
     app.get("/addrecipes/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
