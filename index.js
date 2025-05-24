@@ -44,7 +44,7 @@ async function run() {
     });
 
     // put method
-    app.put("/addrecipes/:id", async (req, res) => {
+    app.put("/recipeLike/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const upsert = { upsert: true };
