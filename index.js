@@ -22,7 +22,8 @@ async function run() {
     const usersCollection = dataBase.collection("recipe-book");
     // get method
     app.get("/addrecipes", async (req, res) => {
-      const cursor = usersCollection.find();
+      const sortOrder = req.query.sort === "asc" ? 1 : -1;
+      const cursor = usersCollection.find().sort({ like: sortOrder });
       const result = await cursor.toArray();
       res.send(result);
     });
@@ -85,13 +86,10 @@ async function run() {
       const result = await usersCollection.deleteOne(query);
       res.send(result);
     });
-
-  
   } finally {
   }
 }
 run().catch(console.dir);
-
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
